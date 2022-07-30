@@ -345,6 +345,8 @@ func (k Keeper) OnAcknowledgementPacket(ctx sdk.Context, packet channeltypes.Pac
 	default:
 		// the acknowledgement succeeded on the receiving chain so nothing
 		// needs to be executed and no error needs to be returned
+		denom := types.ParseDenomTrace(data.Denom)
+		k.AfterTransferEnd(ctx, data, denom.BaseDenom)
 		return nil
 	}
 }
